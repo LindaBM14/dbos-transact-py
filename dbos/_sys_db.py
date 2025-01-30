@@ -1278,3 +1278,16 @@ class SystemDatabase:
                     .where(SystemSchema.workflow_queue.c.workflow_uuid == workflow_id)
                     .values(completed_at_epoch_ms=int(time.time() * 1000))
                 )
+
+    def clear_queue_assignment(self, workflow_id: str) -> None:
+        with self.engine.begin() as c:
+            c.execute(
+                sa.update(SystemSchema.workflow_queue)
+                .where(SystemSchema.workflow_queue.c.workflow_uuid == workflow_id)
+                .values(executor_id=None, started_at_epoch_ms=None)
+            )
+            c.execute(
+                sa.update(SystemSchema.workflow_status)
+                .where(SystemSchema.workflow_status.c.workflow_uuid == workflow_id)
+                .values(executor_id=None, status=WorkflowStatusString.ENQUEUED.value)
+            )
