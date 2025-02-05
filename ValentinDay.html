@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Dead Valentine's Invitation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+
+        body {
+            font-family: 'UnifrakturCook', cursive;
+            background-image: url('https://images.alphacoders.com/109/1096747.jpg'); /* Fondo romántico RDR2 */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+        .letter {
+            background-image: url('https://i.pinimg.com/originals/9d/8d/b5/9d8db5e04db7482c9efda63e0a56a248.jpg'); /* Papel romántico */
+            background-size: cover;
+            padding: 30px;
+            border: 3px solid #c9a54f;
+            border-radius: 10px;
+            display: none;
+            max-width: 600px;
+            margin: auto;
+            animation: fadeIn 2s ease-in-out;
+            color: black;
+            font-size: 18px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+        button {
+            background-color: #c9a54f;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: 'UnifrakturCook', cursive;
+        }
+        .response-btn {
+            background-color: darkgreen;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            font-family: 'UnifrakturCook', cursive;
+            border-radius: 5px;
+        }
+        .no-btn {
+            background-color: darkred;
+        }
+        .close-btn {
+            background-color: darkred;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .sticker {
+            display: none;
+            margin-top: 20px;
+            width: 250px;
+        }
+        .music-btn {
+            background-color: darkblue;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>💀 Red Dead Valentine's Invitation 💀</h1>
+    <button onclick="showLetter()">💌 Abrir la Carta</button>
+    
+    <div class="letter" id="letter">
+        <button class="close-btn" onclick="hideLetter()">X</button>
+        <h2>Mi Querid@ Foraster@...</h2>
+        <p>En este mundo sin ley, donde los forajidos corren libres,  
+           hay un solo lugar al que deseo cabalgar... y ese eres tú. ❤</p>
+        <p>Desde la primera vez que te vi bajo el cielo del Oeste,  
+           supe que mi destino estaba atado al tuyo, como las riendas de un fiel corcel. 🐎</p>
+        <p>Así que dime, ¿te animas a cabalgar junt@s hacia el atardecer? 🌅</p>
+        
+        <button class="response-btn" onclick="respond('yeehaw')">🤠 YEEHAW</button>
+        <button class="response-btn no-btn" onclick="respond('nay')">💔 NAY</button>
+
+        <p id="response-message"></p>
+
+        <img id="sticker" class="sticker" src="https://media.tenor.com/q7JGbgsucO0AAAAC/red-dead-redemption-arthur-morgan.gif" alt="Sticker Arthur Morgan celebrando">
+        
+        <br>
+        <button class="music-btn" onclick="playMusic()">🎵 Reproducir Música</button>
+        
+        <audio id="sound">
+            <source src="https://www.myinstants.com/media/sounds/red-dead-redemption-2-song.mp3" type="audio/mp3">
+            Tu navegador no soporta el audio.
+        </audio>
+    </div>
+
+    <script>
+        function showLetter() {
+            document.getElementById('letter').style.display = 'block';
+        }
+
+        function hideLetter() {
+            document.getElementById('letter').style.display = 'none';
+            document.getElementById('sound').pause();
+        }
+
+        function playMusic() {
+            var audio = document.getElementById('sound');
+            audio.volume = 0.7;  // Ajusta el volumen para que no esté muy alto
+            audio.play().catch(error => {
+                alert("⚠ Para reproducir la música, activa el sonido en tu navegador.");
+            });
+        }
+
+        function respond(choice) {
+            var message = document.getElementById('response-message');
+            var sticker = document.getElementById('sticker');
+            
+            if (choice === 'yeehaw') {
+                message.innerHTML = "🤠 ¡Sabía que eras de los buenos! ¡Nos vemos al atardecer, foraster@!";
+                sticker.style.display = 'block'; // Mostrar sticker
+            } else {
+                message.innerHTML = "💔 Bueno... entonces seguiré cabalgando sol@ en este mundo salvaje...";
+                sticker.style.display = 'none'; // Ocultar sticker
+            }
+        }
+    </script>
+</body>
+</html>
